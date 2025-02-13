@@ -1,0 +1,111 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body id="stage1">
+    <div class="container">
+        <h1 id="question">Davia Garrick, will you be my Valentine? 💖</h1>
+        <button id="yesBtn" onclick="nextStage()">Yes</button>
+        <button id="noBtn" onclick="sayNo()">No</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+<!-- styles.css -->
+<style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: white;
+    background-size: cover;
+    background-position: center;
+    transition: background 0.5s ease-in-out;
+}
+
+.container {
+    margin-top: 20vh;
+}
+
+button {
+    font-size: 18px;
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#yesBtn { background-color: green; color: white; }
+#noBtn { background-color: red; color: white; }
+
+.heart {
+    position: fixed;
+    bottom: 0;
+    font-size: 24px;
+    animation: floatUp 4s linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
+}
+</style>
+
+<!-- script.js -->
+<script>
+let stage = 1;
+
+function nextStage() {
+    const body = document.body;
+    const question = document.getElementById("question");
+    
+    if (stage === 1) {
+        body.style.backgroundImage = "url('bg2.jpg')";
+        question.innerText = "Are you sure? 😊";
+    } else if (stage === 2) {
+        body.style.backgroundImage = "url('bg3.jpg')";
+        question.innerText = "Are you really sure? 🥰";
+    } else if (stage === 3) {
+        body.style.backgroundImage = "url('bg4.jpg')";
+        question.innerText = "Positive? 😘";
+    } else if (stage === 4) {
+        body.style.backgroundImage = "url('bg5.jpg')";
+        question.innerText = "1000000%??? 💞";
+    } else {
+        showFinalStage();
+        return;
+    }
+    
+    stage++;
+}
+
+function sayNo() {
+    alert("Oh no! 😢");
+}
+
+function showFinalStage() {
+    document.body.innerHTML = `
+        <div class="container">
+            <h1>🎉 Congratulations, we are now Valentines! 🎉</h1>
+            <img src="kiss.jpg" alt="Our Kiss" width="300">
+        </div>`;
+    
+    setInterval(createHeart, 500);
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = `${Math.random() * 100}vw`;
+    heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+}
+</script>
